@@ -102,3 +102,7 @@ InitTestScene*.unity*
 
 # Ignore text Mesh Pro library
 /[Aa]ssets/TextMesh Pro/*
+
+# Visual Assets
+*.fbx
+*.anim
