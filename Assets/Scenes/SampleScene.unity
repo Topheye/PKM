@@ -798,7 +798,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5898b9bea30ea1699ba5bc458f85d683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputHandler
-  _speedMultiplier: 20
   _playerController: {fileID: 1839856646}
 --- !u!114 &1839856646
 MonoBehaviour:
@@ -814,7 +813,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _moveSpeed: 5
   rotationSpeed: 5
-  _speedMultiplier: 20
+  _speedMultiplier: 12
+  _jumpForce: 5
+  _gravity: 9.81
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

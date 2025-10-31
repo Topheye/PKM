@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -18,9 +19,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _jumpForce = 5f;
     private float _verticalVelocity;
-
     [SerializeField]
     private float _gravity = 9.81f;
+
+    [SerializeField]
+    private float _dashForce = 5f;
 
     void Start()
     {
@@ -28,10 +31,30 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void Move(Vector2 moveDirection)
+    public void Move(Vector2 moveDirection, bool dash)
     {
         Vector3 move = transform.forward * moveDirection.y + transform.right * moveDirection.x;
         move = move * _moveSpeed * Time.deltaTime;
+        if (dash)
+        {
+            move *= 2;
+        }
+        if (Math.Abs(moveDirection.x) > Math.Abs(moveDirection.y))
+        {
+            if (moveDirection.x > 0)
+            {
+                _animator.SetBool("Right", true);
+            }
+            else
+            {
+                _animator.SetBool("Left", true);
+            }
+        }
+        else
+        {
+            _animator.SetBool("Right", false);
+            _animator.SetBool("Left", false);
+        }
         _characterController.Move(move);
         _animator.SetFloat("Speed", move.magnitude * _speedMultiplier);
 
@@ -49,17 +72,20 @@ public class PlayerController : MonoBehaviour
         if (_characterController.isGrounded)
         {
             _verticalVelocity = _jumpForce;
-            _animator.SetBool("Jump", true);
+            _animator.SetTrigger("Jump");
         }
+    }
+
+    public void Dash(Vector3 dashDirection)
+    {
+        Look(dashDirection);
+        //Move(dashDirection * _dashForce);
+        _animator.SetTrigger("Roll");
     }
 
     public void ApplyGravity()
     {
         _verticalVelocity -= _gravity * Time.deltaTime;
         _characterController.Move(new Vector3(0, _verticalVelocity, 0) * Time.deltaTime);
-        if (_characterController.isGrounded)
-        {
-            _animator.SetBool("Jump", false);
-        }
     }
 }
