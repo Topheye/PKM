@@ -813,9 +813,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _moveSpeed: 5
   rotationSpeed: 5
-  _speedMultiplier: 12
+  _speedMultiplier: 10
   _jumpForce: 5
   _gravity: 9.81
+  _dashForce: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

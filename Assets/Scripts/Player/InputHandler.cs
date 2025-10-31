@@ -31,7 +31,7 @@ public class InputHandler : MonoBehaviour
         Vector2 moveDirection = _moveAction.ReadValue<Vector2>();
         Vector2 lookDirection = _lookAction.ReadValue<Vector2>();
         bool dash = false;
-        
+
         if (_dashAction.IsPressed())
         {
             dash = true;

@@ -14,11 +14,12 @@ public class PlayerController : MonoBehaviour
     private float rotation = 0f;
 
     [SerializeField]
-    private float _speedMultiplier = 12;
+    private float _speedMultiplier = 10;
 
     [SerializeField]
     private float _jumpForce = 5f;
     private float _verticalVelocity;
+
     [SerializeField]
     private float _gravity = 9.81f;
 
@@ -35,19 +36,28 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 move = transform.forward * moveDirection.y + transform.right * moveDirection.x;
         move = move * _moveSpeed * Time.deltaTime;
+        
         if (dash)
         {
+            _animator.SetBool("Dash", true);
             move *= 2;
         }
+        else
+        {
+            _animator.SetBool("Dash", false);
+        }
+
         if (Math.Abs(moveDirection.x) > Math.Abs(moveDirection.y))
         {
             if (moveDirection.x > 0)
             {
                 _animator.SetBool("Right", true);
+                _animator.SetBool("Left", false);
             }
             else
             {
                 _animator.SetBool("Left", true);
+                _animator.SetBool("Right", false);
             }
         }
         else
