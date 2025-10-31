@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,19 +6,20 @@ public class InputHandler : MonoBehaviour
     private InputAction _moveAction;
     private InputAction _lookAction;
     private InputAction _jumpAction;
+    private InputAction _dashAction;
+
     [SerializeField]
     private PlayerController _playerController;
 
-    void Start()
+    void Awake()
     {
         _moveAction = InputSystem.actions.FindAction("Move");
         _lookAction = InputSystem.actions.FindAction("Look");
         _jumpAction = InputSystem.actions.FindAction("Jump");
+        _dashAction = InputSystem.actions.FindAction("Dash");
 
-        Cursor.visible = false;
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Locked;
-
-        _jumpAction.performed += OnJump;
     }
 
     void Update()
@@ -33,7 +33,7 @@ public class InputHandler : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext ctx)
     {
-        
+        _playerController.Jump();
     }
 
     private void OnEnable()
@@ -43,6 +43,6 @@ public class InputHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        _jumpAction.performed += OnJump;
+        _jumpAction.performed -= OnJump;
     }
 }
