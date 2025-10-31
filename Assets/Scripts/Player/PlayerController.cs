@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 move = transform.forward * moveDirection.y + transform.right * moveDirection.x;
         move = move * _moveSpeed * Time.deltaTime;
-        
+
         if (dash)
         {
             _animator.SetBool("Dash", true);
