@@ -14,7 +14,11 @@ public class CameraController : MonoBehaviour
     private void LateUpdate()
     {
         Vector3 targetPosition = _followTarget.position;
-        transform.position = Vector3.Lerp(transform.position, targetPosition, _followSpeed * Time.deltaTime);
+        transform.position = Vector3.Lerp(
+            transform.position,
+            targetPosition,
+            _followSpeed * Time.deltaTime
+        );
         transform.LookAt(_lookAtTarget);
     }
 }

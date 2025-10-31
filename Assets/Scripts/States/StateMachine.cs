@@ -21,27 +21,15 @@ public class PlayerStateMachine : MonoBehaviour
     /// Special powers
     /// </summary>
     #region Monobehaviour methods
-    public void Awake()
-    {
-        
-    }
+    public void Awake() { }
 
-    public void Update()
-    {
-
-    }
+    public void Update() { }
     #endregion
 
     #region Subscribe to events
-    void OnEnable()
-    {
-        
-    }
+    void OnEnable() { }
 
-    void OnDisable()
-    {
-        
-    }
+    void OnDisable() { }
     #endregion
 
     #region State transition
