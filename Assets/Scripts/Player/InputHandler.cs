@@ -8,6 +8,7 @@ public class InputHandler : MonoBehaviour
     private InputAction _jumpAction;
     private InputAction _dashAction;
     private InputAction _rollAction;
+    private InputAction _shootAction;
 
     [SerializeField]
     private PlayerController _playerController;
@@ -21,6 +22,7 @@ public class InputHandler : MonoBehaviour
         _jumpAction = InputSystem.actions.FindAction("Jump");
         _dashAction = InputSystem.actions.FindAction("Dash");
         _rollAction = InputSystem.actions.FindAction("Roll");
+        _shootAction = InputSystem.actions.FindAction("Shoot");
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -53,15 +55,22 @@ public class InputHandler : MonoBehaviour
         }
     }
 
+    private void OnShoot(InputAction.CallbackContext ctx)
+    {
+        _playerController.Shoot(Mouse.current.position.ReadValue());
+    }
+
     private void OnEnable()
     {
         _jumpAction.performed += OnJump;
         _rollAction.performed += OnRoll;
+        _shootAction.performed += OnShoot;
     }
 
     private void OnDisable()
     {
         _jumpAction.performed -= OnJump;
         _rollAction.performed -= OnRoll;
+        _shootAction.performed -= OnShoot;
     }
 }

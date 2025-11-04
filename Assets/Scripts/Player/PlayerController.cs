@@ -1,9 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
     private CharacterController _characterController;
+    [SerializeField]
+    private Camera _playerCamera;
+    [SerializeField]
+    private LineRenderer _lineRenderer;
     private Animator _animator;
 
     [SerializeField]
@@ -97,5 +102,23 @@ public class PlayerController : MonoBehaviour
     {
         _verticalVelocity -= _gravity * Time.deltaTime;
         _characterController.Move(new Vector3(0, _verticalVelocity, 0) * Time.deltaTime);
+    }
+
+    public void Shoot(Vector2 lookDirection)
+    {
+        Vector3 characterPosition = this.transform.position;
+        Ray ray = _playerCamera.ScreenPointToRay(lookDirection);
+        Vector3 targetPoint = ray.origin + ray.direction * 100;
+        Vector3 direction = (targetPoint - characterPosition).normalized;
+        StartCoroutine(DrawLaser(characterPosition + Vector3.up * 1.5f, characterPosition + Vector3.up * 1.5f + direction * 100));
+    }
+    private System.Collections.IEnumerator DrawLaser(Vector3 start, Vector3 end)
+    {
+        _lineRenderer.enabled = true;
+        _lineRenderer.SetPosition(0, start);
+        _lineRenderer.SetPosition(1, end);
+
+        yield return new WaitForSeconds(1);
+        _lineRenderer.enabled = false;
     }
 }
