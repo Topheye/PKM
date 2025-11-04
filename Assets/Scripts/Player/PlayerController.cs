@@ -5,8 +5,10 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController _characterController;
+
     [SerializeField]
     private Camera _playerCamera;
+
     [SerializeField]
     private LineRenderer _lineRenderer;
     private Animator _animator;
@@ -110,8 +112,14 @@ public class PlayerController : MonoBehaviour
         Ray ray = _playerCamera.ScreenPointToRay(lookDirection);
         Vector3 targetPoint = ray.origin + ray.direction * 100;
         Vector3 direction = (targetPoint - characterPosition).normalized;
-        StartCoroutine(DrawLaser(characterPosition + Vector3.up * 1.5f, characterPosition + Vector3.up * 1.5f + direction * 100));
+        StartCoroutine(
+            DrawLaser(
+                characterPosition + Vector3.up * 1.5f,
+                characterPosition + Vector3.up * 1.5f + direction * 100
+            )
+        );
     }
+
     private System.Collections.IEnumerator DrawLaser(Vector3 start, Vector3 end)
     {
         _lineRenderer.enabled = true;
